@@ -368,7 +368,7 @@ export default function MainScreen({ navigation })
                             }}
                             onPress={() =>
                             {
-                                setVisible(false)
+                                setVisible_2(false)
                                 navigation.navigate(Stacks.ActivityOne)
                             }}>
                             <Text style={{ color: 'white',  fontSize: 16 }}>Iniciar cronómetro</Text>
@@ -452,7 +452,7 @@ export default function MainScreen({ navigation })
                             }}
                             onPress={() =>
                             {
-                                setVisible(false)
+                                setVisible_3(false)
                                 navigation.navigate(Stacks.ActivityOne)
                             }}>
                             <Text style={{ color: 'white',  fontSize: 16 }}>Iniciar cronómetro</Text>
@@ -535,26 +535,12 @@ export default function MainScreen({ navigation })
                             }}
                             onPress={() =>
                             {
-                                setVisible(false)
+                                setVisible_4(false)
                                 navigation.navigate(Stacks.ActivityOne)
                             }}>
                             <Text style={{ color: 'white',  fontSize: 16 }}>Iniciar cronómetro</Text>
                         </TouchableOpacity>
                     </View>                   
-                        {/* <YoutubePlayer
-                            height={200}
-                            play={true}
-                            videoId={'GmO1Uy4_pLM'}
-                            // onChangeState={onStateChange}
-                            // onReady={() => loadingRef?.current?.hide()}
-                            webViewStyle={{ opacity: 0.99 }}
-                            webViewProps={{
-                                renderToHardwareTextureAndroid: true,
-                                androidLayerType:
-                                    Platform.OS === 'android' && Platform.Version <= 22 ? 'hardware' : 'none'
-                            }}
-                        /> */}
-                        {/* <Text>En esta oportunidad se presenta a un experto en pausas activas con una linda dinámica de baile.</Text> */}
                 </View>
             </Modal>
         </View>
