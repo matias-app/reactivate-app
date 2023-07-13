@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: ITEM_SIZE * 0.8,
-    fontFamily: 'Roboto',
+    // fontFamily: 'Roboto',
     color: colors.text,
     fontWeight: '900',
   }

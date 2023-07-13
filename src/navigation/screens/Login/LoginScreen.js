@@ -34,6 +34,7 @@ export default function LoginScreen({ navigation })
             <TouchableOpacity style={styles.footer} onPress={onContinue}>
                 <Text style={styles.textFooter}>COMENZAR</Text>
             </TouchableOpacity>
+            <Text style={styles.descriptionApp}>Esta app tiene como finalidad crear un momento de relajación y recreación para evitar la perdida de concentración hacia las actividades de trabajo, así mismo promueve la actividad fisica como habito de vida saludable.</Text>
         </View>
     )
 }
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         marginVertical: 15,
-        marginBottom: 50
+        marginBottom: 30
     },
     logo: {
         width: '100%',
@@ -63,12 +64,12 @@ const styles = StyleSheet.create({
         height: 100
     },
     title: {
-        fontFamily: 'Roboto',
+        // fontFamily: 'Roboto',
         fontSize: 30,
         fontWeight: 'bold'
     },
     textLogin: {
-        fontFamily: 'Roboto',
+        // fontFamily: 'Roboto',
         fontWeight: '600',
         fontSize: 16,
         color: 'white'
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
         height: 56
     },
     textRegister: {
-        fontFamily: 'Roboto',
+        // fontFamily: 'Roboto',
         fontWeight: '600',
         fontSize: 16,
         color: '#1E232C'
@@ -121,6 +122,9 @@ const styles = StyleSheet.create({
     textFooter: {
     fontSize:16,
     color:'white',
-        fontFamily: 'Roboto',
-    }
+        // fontFamily: 'Roboto',
+    },
+    descriptionApp:{marginTop:5, fontSize:12, textAlign:'center',
+    // fontFamily: 'Roboto', 
+    lineHeight:19}
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, Animated, View, StatusBar  } from 'react-native'
+import { StyleSheet, Animated, View, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { WelcomeInfo } from '../../../global/constants'
@@ -36,7 +36,8 @@ export default function Onboarding({ navigation })
         }
     }, [flatListRef.current])
 
-    const handleContinue = () => {
+    const handleContinue = () =>
+    {
         navigation.navigate(Stacks.Login)
     }
 

@@ -1,8 +1,8 @@
 export const WelcomeInfo = [
     {
       image: require('../assets/onboarding_1.jpg'),
-      title: '¡Vive las mejores experiencias con Real Plaza!',
-      text: 'Las mejores novedades en entretenimiento, eventos y más.',
+      title: '-',
+      text: '-',
       colorText: 'white',
       backgroundColor: '#dedede',
       iconColor: {
@@ -12,8 +12,8 @@ export const WelcomeInfo = [
     },
     {
       image: require('../assets/onboarding_2.jpg'),
-      title: '¡Vive las mejores experiencias con Real Plaza!',
-      text: 'Las mejores novedades en entretenimiento, eventos y más.',
+      title: '-',
+      text: '-',
       colorText: 'white',
       backgroundColor: 'blue',
       iconColor: {
@@ -23,8 +23,8 @@ export const WelcomeInfo = [
     },
     {
       image: require('../assets/onboarding_3.jpg'),
-      title: '¡Vive las mejores experiencias con Real Plaza!',
-      text: 'Las mejores novedades en entretenimiento, eventos y más.',
+      title: '-',
+      text: '-',
       colorText: 'white',
       backgroundColor: 'red',
       iconColor: {
