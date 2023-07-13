@@ -16,6 +16,7 @@ import
 import React from 'react'
 import { windowWidth, windowHeight } from '../../../global/tools'
 import Stacks from '../../../global/stacks'
+import { Audio } from 'expo-av';
 
 const colors = {
   black: '#323F4E',
@@ -35,6 +36,7 @@ export default function ActivityOneScreen({ navigation })
   const timerAnimation = React.useRef(new Animated.Value(windowHeight)).current
   const textInputAnimation = React.useRef(new Animated.Value(timers[0])).current
   const buttonAnimation = React.useRef(new Animated.Value(0)).current
+  const soundRef = React.useRef(null)
 
   React.useEffect(() =>
   {
@@ -57,6 +59,7 @@ export default function ActivityOneScreen({ navigation })
   const animation = React.useCallback(() =>
   {
     textInputAnimation.setValue(duration)
+    playSoundCount()
     Animated.sequence([
       Animated.timing(buttonAnimation, {
         toValue: 1,
@@ -84,7 +87,10 @@ export default function ActivityOneScreen({ navigation })
     ]).start(() =>
     {
       Vibration.cancel()
-      Vibration.vibrate()
+      soundRef.current?.unloadAsync();
+      playSound().then(() => {
+        Vibration.vibrate()
+      })
       Animated.timing(buttonAnimation, {
         toValue: 0,
         duration: 300,
@@ -92,6 +98,21 @@ export default function ActivityOneScreen({ navigation })
       }).start()
     })
   }, [duration])
+
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync( require('../../../assets/music/ring.mp3')
+    );
+
+    await sound.playAsync();
+  }
+
+  async function playSoundCount() {
+    const { sound } = await Audio.Sound.createAsync( require('../../../assets/music/count.mp3')
+    );
+    // setSound(sound)
+    soundRef.current = sound
+    await sound.playAsync();
+  }
 
   const opacity = buttonAnimation.interpolate({
     inputRange: [0, 1],

@@ -4,10 +4,10 @@ import Stacks from '../../../global/stacks'
 import Modal from 'react-native-modal'
 import { FlatList } from 'react-native'
 import { windowWidth } from '../../../global/tools'
-import YoutubePlayer from 'react-native-youtube-iframe'
+import { Audio } from 'expo-av';
 const DATA = [{
     key: 1,
-    description: 'Gira la cabeza hacia tu lado derecho, hasta que tu mentón quede casi en la misma dirección que tu hombro .Sostén esta posición por el tiempo que has decidido cronometrar y luego vuelve al centro. Por último repite el ejercicio hacia el lado izquierdo.',
+    description: 'Gira la cabeza hacia tu lado derecho, hasta que tu mentón quede casi en la misma dirección que tu hombro. Sostén esta posición por el tiempo que has decidido cronometrar y luego vuelve al centro.\nPor último repite el ejercicio hacia el lado izquierdo.',
     image: require('../../../assets/seccion_1_ej_1.png')
 }, {
     key: 2,
@@ -74,7 +74,7 @@ const DATA_3 = [{
 
 const DATA_4 = [{
     key: 1,
-    description: 'De pie y con las piernas ligeramente separadas dobla una rodilla y con la mano del mismo lado agarra tu tobillo y llevalo hacia tus glúteos , al mismo tiempo eleva tu brazo contrario hasta la altura del hombro para mantener el equilibrio, regresa lentamente  a la posición inicial.',
+    description: 'De pie y con las piernas ligeramente separadas dobla una rodilla y con la mano del mismo lado agarra tu tobillo y llevalo hacia tus glúteos, al mismo tiempo eleva tu brazo contrario hasta la altura del hombro para mantener el equilibrio, regresa lentamente  a la posición inicial.',
     image: require('../../../assets/seccion_4_ej_1.png')
 }, {
     key: 2,
@@ -107,6 +107,33 @@ export default function MainScreen({ navigation })
 
 
     const [visible_4, setVisible_4] = React.useState(false)
+    const [step_4, setStep_4] = React.useState(1)
+
+    const [sound, setSound] = React.useState();
+
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync( require('../../../assets/music/intro.mp3')
+        );
+        setSound(sound);
+    
+        console.log('Playing Sound');
+        await sound.playAsync();
+      }
+
+      React.useEffect(() => {
+        playSound()
+      },[])
+
+      React.useEffect(() => {
+        return sound
+          ? () => {
+              console.log('Unloading Sound');
+              sound.unloadAsync();
+            }
+          : undefined;
+      }, [sound]);
+
 
     return (
         <View style={styles.container}>
@@ -168,6 +195,7 @@ export default function MainScreen({ navigation })
                     <TouchableOpacity style={styles.activities} onPress={() =>
                     {
                         setVisible_4(true)
+                        setStep_4(1)
                     }}>
                         <Image
                             source={require('../../../assets/seccion_4.png')}
@@ -192,22 +220,24 @@ export default function MainScreen({ navigation })
                 onModalHide={() => setVisible(false)}
                 avoidKeyboard={true}
             >
-                <View style={{ width: '100%', height: '75%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                <View style={{ width: '100%', height: '65%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
                     <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', padding: 20, flexDirection: 'row' }}
                         onPress={() => setVisible(false)}
                     >
                         <Text style={{  fontSize: 16, fontWeight: '700', flex: 1 }}>Movimiento de cuello y cabeza</Text>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>X</Text>
                     </TouchableOpacity>
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <Text>Paso {step} de {DATA.length}</Text>
+                    <View style={{ 
+                        // paddingHorizontal: 20
+                         }}>
+                        <Text style={{paddingHorizontal:20}}>Paso {step} de {DATA.length}</Text>
                         <FlatList
                             data={DATA}
                             keyExtractor={item => item.key.toString()}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             contentContainerStyle={{
-                                paddingHorizontal: 10
+                                // paddingHorizontal: 10
                             }}
                             onMomentumScrollEnd={ev =>
                             {
@@ -222,23 +252,21 @@ export default function MainScreen({ navigation })
                                         style={{
                                             width: windowWidth,
                                             justifyContent: 'center',
-                                            alignItems: 'center'
+                                            alignItems: 'center',
                                         }}
                                     >
                                         <Image
                                             source={item.image}
                                             style={{
-                                                width: '100%',
+                                                width: '90%',
                                                 height: 200,
-                                                marginHorizontal: 10
                                             }}
                                             resizeMode='contain'
                                         />
 
                                         <Text style={{
-                                            
-                                            width: '90%',
-                                            marginTop: 10
+                                            paddingHorizontal:10,
+                                            marginTop: 10,
                                         }}>{item.description}</Text>
                                     </View>
                                 )
@@ -251,7 +279,8 @@ export default function MainScreen({ navigation })
                                 alignItems: 'center',
                                 height: 56,
                                 justifyContent: 'center',
-                                marginTop: 20
+                                marginTop: 20,
+                                marginHorizontal:15
                             }}
                             onPress={() =>
                             {
@@ -283,8 +312,8 @@ export default function MainScreen({ navigation })
                         <Text style={{  fontSize: 16, fontWeight: '700', flex: 1 }}>Movimiento de brazos y tronco</Text>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>X</Text>
                     </TouchableOpacity>
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <Text>Paso {step_2} de {DATA_2.length}</Text>
+                    <View>
+                    <Text style={{paddingHorizontal:20}}>Paso {step_2} de {DATA_2.length}</Text>
                         <FlatList
                             data={DATA_2}
                             keyExtractor={item => item.key.toString()}
@@ -312,30 +341,30 @@ export default function MainScreen({ navigation })
                                         <Image
                                             source={item.image}
                                             style={{
-                                                width: '100%',
+                                                width: '90%',
                                                 height: 320,
-                                                marginHorizontal: 10
+                                                // marginHorizontal: 10
                                             }}
                                             resizeMode='contain'
                                         />
 
-                                        <Text style={{
-                                            
-                                            width: '90%',
-                                            marginTop: 10
+<Text style={{
+                                            paddingHorizontal:10,
+                                            marginTop: 10,
                                         }}>{item.description}</Text>
                                     </View>
                                 )
                             }}
                         />
                         <TouchableOpacity
-                            style={{
+                            style={{                        
                                 borderRadius: 10,
                                 backgroundColor: '#1E232C',
                                 alignItems: 'center',
                                 height: 56,
                                 justifyContent: 'center',
-                                marginTop: 20
+                                marginTop: 20,
+                                marginHorizontal:15
                             }}
                             onPress={() =>
                             {
@@ -360,15 +389,15 @@ export default function MainScreen({ navigation })
                 onModalHide={() => setVisible_3(false)}
                 avoidKeyboard={true}
             >
-                <View style={{ width: '100%', height: '60%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                <View style={{ width: '100%', height: '75%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
                     <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', padding: 20, flexDirection: 'row' }}
                         onPress={() => setVisible_3(false)}
                     >
                         <Text style={{  fontSize: 16, fontWeight: '700', flex: 1 }}>Movimiento de manos</Text>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>X</Text>
                     </TouchableOpacity>
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <Text>Paso {step_3} de {DATA_3.length}</Text>
+                    <View>
+                    <Text style={{paddingHorizontal:20}}>Paso {step_3} de {DATA_3.length}</Text>
                         <FlatList
                             data={DATA_3}
                             keyExtractor={item => item.key.toString()}
@@ -380,7 +409,7 @@ export default function MainScreen({ navigation })
                             onMomentumScrollEnd={ev =>
                             {
                                 const index = Math.floor(ev.nativeEvent.contentOffset.x / windowWidth)
-                                setStep_2(index + 1)
+                                setStep_3(index + 1)
                             }}
                             snapToInterval={windowWidth}
                             renderItem={({ item, index }) =>
@@ -396,21 +425,38 @@ export default function MainScreen({ navigation })
                                         <Image
                                             source={item.image}
                                             style={{
-                                                width: '100%',
+                                                width: '70%',
                                                 height: 320,
-                                                marginHorizontal: 10
+                                                // marginHorizontal: 10
                                             }}
                                             resizeMode='contain'
                                         />
 
-                                        <Text style={{
-                                            
-                                            width: '90%',
+<Text style={{
+                                            paddingHorizontal:10,
+                                            marginTop: 10,
                                         }}>{item.description}</Text>
                                     </View>
                                 )
                             }}
                         />
+                        <TouchableOpacity
+                            style={{
+                                borderRadius: 10,
+                                backgroundColor: '#1E232C',
+                                alignItems: 'center',
+                                height: 56,
+                                justifyContent: 'center',
+                                marginTop: 20,
+                                marginHorizontal:15
+                            }}
+                            onPress={() =>
+                            {
+                                setVisible(false)
+                                navigation.navigate(Stacks.ActivityOne)
+                            }}>
+                            <Text style={{ color: 'white',  fontSize: 16 }}>Iniciar cronómetro</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -427,15 +473,15 @@ export default function MainScreen({ navigation })
                 onModalHide={() => setVisible_4(false)}
                 avoidKeyboard={true}
             >
-                <View style={{ width: '100%', height: '55%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
+                <View style={{ width: '100%', height: '75%', backgroundColor: 'white', borderTopLeftRadius: 10, borderTopRightRadius: 10 }}>
                     <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', padding: 20, flexDirection: 'row' }}
                         onPress={() => setVisible_4(false)}
                     >
                         <Text style={{  fontSize: 16, fontWeight: '700', flex: 1 }}>Movimiento de piernas</Text>
                         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>X</Text>
                     </TouchableOpacity>
-                    <View style={{ paddingHorizontal: 20 }}>
-                        <Text>Paso {step_3} de {DATA_3.length}</Text>
+                    <View>
+                    <Text style={{paddingHorizontal:20}}>Paso {step_4} de {DATA_4.length}</Text>
                         <FlatList
                             data={DATA_4}
                             keyExtractor={item => item.key.toString()}
@@ -447,7 +493,7 @@ export default function MainScreen({ navigation })
                             onMomentumScrollEnd={ev =>
                             {
                                 const index = Math.floor(ev.nativeEvent.contentOffset.x / windowWidth)
-                                setStep_2(index + 1)
+                                setStep_4(index + 1)
                             }}
                             snapToInterval={windowWidth}
                             renderItem={({ item, index }) =>
@@ -463,21 +509,37 @@ export default function MainScreen({ navigation })
                                         <Image
                                             source={item.image}
                                             style={{
-                                                width: '100%',
+                                                width: '80%',
                                                 height: 320,
-                                                marginHorizontal: 10
                                             }}
                                             resizeMode='contain'
                                         />
 
-                                        <Text style={{
-                                            
-                                            width: '90%',
+<Text style={{
+                                            paddingHorizontal:10,
+                                            marginTop: 10,
                                         }}>{item.description}</Text>
                                     </View>
                                 )
                             }}
                         />
+                         <TouchableOpacity
+                            style={{                        
+                                borderRadius: 10,
+                                backgroundColor: '#1E232C',
+                                alignItems: 'center',
+                                height: 56,
+                                justifyContent: 'center',
+                                marginTop: 20,
+                                marginHorizontal:15
+                            }}
+                            onPress={() =>
+                            {
+                                setVisible(false)
+                                navigation.navigate(Stacks.ActivityOne)
+                            }}>
+                            <Text style={{ color: 'white',  fontSize: 16 }}>Iniciar cronómetro</Text>
+                        </TouchableOpacity>
                     </View>                   
                         {/* <YoutubePlayer
                             height={200}
