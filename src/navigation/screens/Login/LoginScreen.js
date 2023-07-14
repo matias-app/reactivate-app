@@ -10,39 +10,49 @@ export default function LoginScreen({ navigation })
     }
 
     return (
-        <View style={styles.container}>
             <ImageBackground
-                source={require('../../../assets/login.jpg')}
+                source={require('../../../assets/bg.png')}
                 style={{
-                    width: '100%',
-                    height: 450,
-                    opacity: 1
+                    marginTop: StatusBar.currentHeight + (Platform.OS=='ios' ? 55 : 0),
+                    flex:1
                 }}
+                resizeMode='stretch'
             >
-                <View style={styles.header}>
-                    <View style={styles.logo}>
+                  <View style={styles.logo}>
                         <Image
-                            source={require('../../../assets/casuarinas-logo.png')}
+                            source={require('../../../assets/banner-1.png')}
                             style={styles.image}
+                            resizeMode='stretch'
+                            resizeMethod='resize'
                         />
                     </View>
-                </View>
-            </ImageBackground >
+         
+        <View style={styles.container}>
+                {/* <View style={styles.header}> */}
+                {/* </View> */}
             <View style={styles.top}>
-                <Text style={styles.title}>Reactivate</Text>
+                {/* <Text style={styles.title}>Reactivate</Text> */}
+                <Image
+                            source={require('../../../assets/title.png')}
+                            style={styles.imageTitle}
+                            resizeMode='center'
+                            resizeMethod='resize'
+                        />
             </View>
             <TouchableOpacity style={styles.footer} onPress={onContinue}>
                 <Text style={styles.textFooter}>COMENZAR</Text>
             </TouchableOpacity>
+            {/* <View style={{backgroundColor:'#99DBF5',opacity:0.9, borderRadius:15,paddingVertical:8,paddingHorizontal:8,borderWidth:1,borderStyle:'dotted',borderColor:'#9AC5F4'}}> */}
             <Text style={styles.descriptionApp}>Esta app tiene como finalidad crear un momento de relajación y recreación para evitar la perdida de concentración hacia las actividades de trabajo, así mismo promueve la actividad fisica como habito de vida saludable.</Text>
-        </View>
+            {/* </View> */}
+            </View>
+            </ImageBackground >
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight + (Platform.OS=='ios' ? 55 : 0),
         marginHorizontal: 15
     },
     header: {
@@ -56,12 +66,15 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: '100%',
-        alignItems: 'flex-end',
         marginTop: 20
     },
     image: {
-        width: 100,
-        height: 100
+        width: '100%',
+        height: 270
+    },
+    imageTitle: {
+        width: '100%',
+        height: 120
     },
     title: {
         // fontFamily: 'Roboto',

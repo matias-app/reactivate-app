@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View, StatusBar, TouchableOpacity, Text, Platform } from 'react-native'
+import { ImageBackground, StyleSheet, Image, View, StatusBar, TouchableOpacity, Text, Platform } from 'react-native'
 import React from 'react'
 import Stacks from '../../../global/stacks'
 import Modal from 'react-native-modal'
@@ -136,12 +136,18 @@ export default function MainScreen({ navigation })
 
 
     return (
-        <View style={styles.container}>
-            <View style={styles.top}>
-                <View>
+        <ImageBackground
+        source={require('../../../assets/bg.png')}
+        style={{
+            marginTop: StatusBar.currentHeight + (Platform.OS=='ios' ? 55 : 0),
+            flex:1
+        }}
+        resizeMode='stretch'
+    >
+        <View style={styles.top}>
                     <Text style={styles.title}>Actividades a realizar</Text>
-                </View>
             </View>
+        <View style={styles.container}>
             <View style={styles.center}>
                 <View style={styles.left}>
                     <TouchableOpacity
@@ -544,13 +550,13 @@ export default function MainScreen({ navigation })
                 </View>
             </Modal>
         </View>
+        </ImageBackground >
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight,
         padding: 15,
         justifyContent: 'center',
         alignItems: 'center'
@@ -569,11 +575,13 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     top: {
-        height: 100
+       backgroundColor:'black',
+        paddingVertical:10,
     },
     title: {
-        fontSize: 30,
-        
-        fontWeight: '800'
+        fontSize: 16,
+        textAlign:'center',
+        color:'white',
+        fontWeight: '500'
     }
 })
